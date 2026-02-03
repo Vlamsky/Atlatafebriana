@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday Sayangg!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&family=VT323&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff9a9e">
+    <meta name="apple-mobile-web-app-capable" content="yes"> <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <button id="musicControl" class="music-btn">
+        🎵
+    </button>
+    <div id="preloader">
+        <div class="heart-loader"></div>
+    </div>
+    <div class="bg-pattern"></div>
+    <div class="bg-hearts" id="bgHearts"></div>
+
+    <audio id="lagu" loop>
+        <source src="Nadhif Basalamah - bergema sampai selamanya (Official Lyric Video).mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="candle-phase">
+        <h2 class="title-text">Make a Wish & Blow! 🎂</h2>
+        <div class="cake-container">
+            <div class="cake">
+                <div class="plate"></div>
+                <div class="layer layer-bottom"></div>
+                <div class="layer layer-middle"></div>
+                <div class="layer layer-top"></div>
+                <div class="icing"></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+            </div>
+        </div>
+        <button id="micBtn">🎤 Nyalakan Mic</button>
+        <p class="subtitle">(Tiup lilinnya yang kencang yaaw sayangg)</p>
+    </div>
+
+    <div id="gate-phase">
+        <div class="gate-card">
+            <h1>Eits, Tunggu dulu! ✋</h1>
+            <p class="gate-desc">
+                Hadiah ini terkunci 🔒<br>
+                Kamu harus melewati <b>Labirin Cinta</b> untuk mendapatkan kuncinya.<br><br>
+                Tapi sebelum itu jawab pertanyaanku dulu...<br>
+                <b class="highlight-pink">Kamu Sayang Aku Ga?</b>
+            </p>
+            <div class="btn-group">
+                <button id="btnYes" class="gate-btn">Sayanggg Bangettt! ❤️</button>
+                <button id="btnNo" class="gate-btn">Engga 😝</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-phase">
+        <h2 class="game-title">Ayoo jalan ke arahku untuk mendapatkan kuncinya❤️</h2>
+        <div id="maze-container"></div>
+        
+        <div class="controls">
+            <div class="control-row"><button class="control-btn" id="upBtn">⬆️</button></div>
+            <div class="control-row">
+                <button class="control-btn" id="leftBtn">⬅️</button>
+                <button class="control-btn" id="downBtn">⬇️</button>
+                <button class="control-btn" id="rightBtn">➡️</button>
+            </div>
+        </div>
+
+        <div id="win-modal" class="modal">
+            <div class="win-card">
+                <div class="win-icon">💕</div>
+                
+                <h2>Yeyyy Ketemu!</h2>
+                <p>Pinter bgt si istri akuuu. <br>Sekarang liat ini yaa...</p>
+                
+                <button id="nextCardBtn" class="premium-btn">Lanjut Sayangg ➝</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="card-phase">
+        <div id="bonusModal" class="modal">
+            <div class="modal-content scratch-modal-content">
+                <span class="close-popup" onclick="closeBonus()">×</span>
+                <h2 class="dancing-font pink-text">Gosok Kupon Cinta! 💖</h2>
+                <p class="small-text" style="margin-bottom: 20px;">Gosok layarnya, temukan hadiahmu, lalu klik tulisannya untuk klaim!</p>
+                
+                <div class="coupons-wrapper">
+
+                    <div class="scratch-coupon-container">
+                        <div class="coupon-secret" onclick="claimCoupon('Es Cream')">
+                            <span style="font-size: 1.5rem;">🍦</span>
+                            <div>
+                                <strong>Es Cream Gratis</strong><br>
+                                <small>Ditanggung aku 100%!</small>
+                            </div>
+                        </div>
+                        <canvas class="scratch-canvas" width="300" height="80"></canvas>
+                    </div>
+
+                    <div class="scratch-coupon-container">
+                        <div class="coupon-secret" style="background: #e3f2fd; color: #1565c0; border-color: #90caf9;" onclick="claimCoupon('Pijat VVIP')">
+                            <span style="font-size: 1.5rem;">💆‍♂️</span>
+                            <div>
+                                <strong>Pijat VVIP</strong><br>
+                                <small>Siap memijatmu waktu ketemu</small>
+                            </div>
+                        </div>
+                        <canvas class="scratch-canvas" width="300" height="80"></canvas>
+                    </div>
+
+                    <div class="scratch-coupon-container">
+                        <div class="coupon-secret" style="background: #f3e5f5; color: #7b1fa2; border-color: #ce93d8;" onclick="claimCoupon('Makan Enak')">
+                            <span style="font-size: 1.5rem;">🍜</span>
+                            <div>
+                                <strong>Makan Enak</strong><br>
+                                <small>Bebas mau mam apa</small>
+                            </div>
+                        </div>
+                        <canvas class="scratch-canvas" width="300" height="80"></canvas>
+                    </div>
+
+                </div>
+
+                <button onclick="closeBonus()" class="btn-close" style="margin-top: 20px;">Simpan Sisanya Nanti</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="slide active">
+                <h1>Haiii Sayanggg...</h1>
+                <p>Selamat yaaw! Kamu udah berhasil melewati rintangannya.<br>Sekarang kamu bisa membuka hadiahmu.</p>
+                <button class="btn-start" onclick="nextSlide()">Lihat Isinya ❤️</button>
+            </div>
+
+            <div class="slide">
+                <h1>Happy Birthday!</h1>
+                <div class="foto-frame"><img src="foto1.jpg" alt="Foto 1"></div>
+                <p>Selamat bertambah usia sayanggku ✨<br>Semoga hari-harimu selalu penuh senyum, tawa kecil, dan hal-hal manis, karena aku bakal selalu ada di samping kamu, nemenin dan sayang sama kamu terus.</p>
+            </div>
+
+            <div class="slide">
+                <h1>Proud of You!</h1>
+                <div class="foto-frame rotate-frame"><img src="foto2.jpg" alt="Foto 2"></div>
+                <p>Aku bangga bgtt sama kamu, sayangg, sama semua proses dan usaha yg kamu jalanin, karena setiap langkahmu selalu bikin aku makin kagum dan makin kecintaan hehe.</p>
+            </div>
+
+<div class="slide" id="memorySlide">
+    <h1 class="sticky-title">Our Journey ❤️</h1>
+    
+    <div class="timeline-wrapper">
+        <div class="timeline">
+            
+            <div class="timeline-item">
+                <div class="content">
+                    <h3>First Close Photo 📸</h3>
+                    <p>First time kita foto barang pas ulang tahunku hehe, masih malu-malu tapi seneng bgt bisa sedeket ini sama kamu.</p>
+                    <img src="foto3.jpg" alt="Momen 1"> 
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="content">
+                    <h3>My Support System 🎓</h3>
+                    <p>Ketika kamu datang di sidang skripsiku, makasii banyak yaa sayangg udh nemenin selama skripsian dan kasih semangat di hari tegang ini.</p>
+                    <img src="foto4.jpg" alt="Momen 2">
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="content">
+                    <h3>Spidey Couple 🕷️</h3>
+                    <p>Foto bareng pakai kaos Spiderman couple, jujur ini momen lucu karena kamu sudah suka rela mau menuruti keinginanku untuk membeli baju couple spiderman ini, padahal kamu maunya baju warna pink hehe.</p>
+                    <img src="foto5.jpg" alt="Momen 3">
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="content">
+                    <h3>Graduation Day 🎓</h3>
+                    <p>Seneng bgt kamu datang ke wisudaku jadi bisa ngerayain pencapaian ini bareng orang spesial, makasii juga udh mau ngeyakinin aku buat ikut wisuda tahun kemarin</p>
+                    <img src="foto6.jpg" alt="Momen 4">
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="content">
+                    <h3>Self Care Date 🧖‍♂️🧖‍♀️</h3>
+                    <p>Momen ini seru bgt karena akhirnya aku bisa memenuhi janjiku untuk memakai masker bareng sama kamu, love our random activities!</p>
+                    <img src="foto7.jpg" alt="Momen 5">
+                </div>
+            </div>
+
+            <div style="height: 50px;"></div>
+
+        </div>
+    </div>
+</div>
+
+            <div class="slide">
+                <h1>Surat Cinta</h1>
+                <p class="click-hint">Klik amplopnya! 💌</p>
+                
+                <div class="envelope-wrapper" onclick="toggleLetter()">
+                    <div class="envelope">
+                        <div class="lid">
+                            <div class="heart-sticker">❤️</div>
+                        </div>
+                        <div class="letter">
+                            <p id="typed-text"></p>
+                            
+                            <div id="source-text" class="hidden-text">
+                                <b>Dear my love, my future wife🤍,</b><br><br>
+                                Happy birthday kesayangankuu✨<br>
+                                Hari ini aku pengen kamu tahu satu hal penting: your existence matters more than you’ll ever realize. Bukan cuma buat aku, tapi buat dunia kecil yg kamu sentuh lewat caramu ketawa, caramu peduli, dan caramu bertahan sejauh ini. Aku bersyukur bgtt karena dikasih kesempatan buat kenal, sayang, dan jatuh cinta sama kamu. Honestly, loving you feels like coming home. Di dunia ini kamu selalu jadi tempat paling tenang. Sama kamu, aku belajar kalo cinta itu bukan cuma tentang kata-kata manis, tapi tentang hadir, tentang dengerin, tentang bertahan walau lagi ga gampang. Thank you for staying, for choosing me, and for loving me in ways that feel gentle but deep. Makasii yaa sayangg karena kamu selalu jadi dirimu sendiri dengan segala kelebihan, kekurangan, dan mimpimu. Aku sayang caramu cerita panjang lebar soal hal-hal kecil, caramu excited sama hal sederhana, dan caramu tetap berusaha walau kadang lagi cape. You inspire me without even trying, and I hope you never forget how amazing you are. <br><br>
+                                Di umur yang baru ini, I wish you're life feels lighter. Semoga langkahmu ga selalu harus kuat sendirian, semoga kamu selalu punya alasan buat tersenyum, dan semoga setiap doa yang kamu simpan diam-diam satu per satu menemukan jawabannya. If the world ever feels too heavy, please remember you don’t have to face it alone, I’m right here, always. I want growing old with you. Through good days and bad days, through laughter and tears, through uncertainty and dreams we haven’t named yet. I want to celebrate your wins, hold you on your lows, and love you in every version of you that life brings. Loving you is not a phase, it’s a choice I’m happy to make every day.<br><br>
+                                So today, on your birthday, let me say this clearly:<br>
+                                You are deeply loved, endlessly cherished, and incredibly precious to me. I’m proud of how far you’ve come, and I’m excited to see the person you’re becoming. May this year bring you closer to your dreams, softer moments for your heart, and more reasons to believe in yourself.<br><br>
+                                <i>Once again, happy birthday my future wife💕</i><br>
+                            </div>
+                        </div>
+                        <div class="pocket"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide">
+                <div class="foto-frame final-frame"><img src="foto8.jpg" alt="Foto Akhir"></div>
+                <h1>I Love You My Future Wife😘</h1>
+                <p>Forever & Always.</p>
+                <button class="btn-bonus" onclick="showBonus()">🎁 Ada Bonus!</button>
+            </div>
+        
+            <div class="nav-container">
+                <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>&#8592; Back</button>
+                <button class="nav-btn" id="nextBtn" onclick="nextSlide()" disabled style="opacity: 0;">Next &#8594;</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
