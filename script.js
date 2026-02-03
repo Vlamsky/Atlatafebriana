@@ -60,27 +60,15 @@ function checkAllCandles() {
         }, 2000);
     }
 }
-
-function matikanLilin(flame) {
-    if (flame && !flame.classList.contains('flame-off')) {
-        flame.classList.add('flame-off');
-        checkAllCandles();
-    }
-}
 candles.forEach(candle => {
-    const flame = candle.querySelector('.flame');
-    candle.addEventListener('click', (e) => {
-        e.stopPropagation(); 
-        matikanLilin(flame);
+    candle.addEventListener('click', () => {
+        const flame = candle.querySelector('.flame');
+        if (flame && !flame.classList.contains('flame-off')) {
+            flame.classList.add('flame-off');
+            checkAllCandles();
+        }
     });
-    if (flame) {
-        flame.addEventListener('click', (e) => {
-            e.stopPropagation();
-            matikanLilin(flame);
-        });
-    }
 });
-
 function showGate() { gatePhase.style.display = 'flex'; }
 function moveBtnNo() {
     if (btnNo.parentNode !== document.body) {

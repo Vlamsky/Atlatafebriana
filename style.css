@@ -127,17 +127,6 @@ body {
     cursor: pointer;
 }
 
-.candle::after {
-    content: "";
-    position: absolute;
-    top: -50px;    
-    left: -25px;   
-    right: -25px;  
-    bottom: -10px; 
-    z-index: 100;  
-    cursor: pointer;
-}
-
 .flame {
     position: absolute; 
     background-color: orange; 
